@@ -14,27 +14,26 @@ import java.util.List;
 import java.util.Locale;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder> {
-    private List<Transaction> transactions;
+    private final List<Transaction> transactions;
     private final SimpleDateFormat dateFormat;
-    private final Context context;
 
     public TransactionAdapter(Context context) {
-        this.context = context;
         this.transactions = new ArrayList<>();
-        this.dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        this.dateFormat = new SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault());
     }
 
     @NonNull
     @Override
     public TransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TransactionViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.item_transaction, parent, false)
-        );
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_transaction, parent, false);
+        return new TransactionViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        holder.bind(transactions.get(position));
+        Transaction transaction = transactions.get(position);
+        holder.bind(transaction);
     }
 
     @Override
@@ -43,38 +42,43 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     }
 
     public void updateTransactions(List<Transaction> newTransactions) {
-        this.transactions = newTransactions;
-        notifyDataSetChanged();
+        int oldSize = transactions.size();
+        transactions.clear();
+        notifyItemRangeRemoved(0, oldSize);
+        
+        transactions.addAll(newTransactions);
+        notifyItemRangeInserted(0, newTransactions.size());
     }
 
     class TransactionViewHolder extends RecyclerView.ViewHolder {
-        final TextView amountText;
-        final TextView categoryText;
-        final TextView dateText;
-        final TextView descriptionText;
+        private final TextView amountText;
+        private final TextView categoryText;
+        private final TextView descriptionText;
+        private final TextView dateText;
 
-        TransactionViewHolder(@NonNull View itemView) {
+        TransactionViewHolder(View itemView) {
             super(itemView);
             amountText = itemView.findViewById(R.id.amountText);
             categoryText = itemView.findViewById(R.id.categoryText);
-            dateText = itemView.findViewById(R.id.dateText);
             descriptionText = itemView.findViewById(R.id.descriptionText);
+            dateText = itemView.findViewById(R.id.dateText);
         }
 
         void bind(Transaction transaction) {
-            String amountStr = String.format("%s %.2f", 
-                transaction.getCurrency(), 
-                Math.abs(transaction.getAmount()));
+            Context context = itemView.getContext();
+            Locale locale = Locale.getDefault();
+            String amountStr = String.format(locale, "%s %.2f", 
+                transaction.getCurrency(), Math.abs(transaction.getAmount()));
             
             amountText.setText(amountStr);
             categoryText.setText(transaction.getCategory());
             descriptionText.setText(transaction.getDescription());
             dateText.setText(dateFormat.format(transaction.getDate()));
 
-            int color = transaction.getType().equals("income") ? 
+            int textColor = transaction.getAmount() >= 0 ? 
                 ContextCompat.getColor(context, R.color.colorIncome) : 
                 ContextCompat.getColor(context, R.color.colorExpense);
-            amountText.setTextColor(color);
+            amountText.setTextColor(textColor);
         }
     }
 }

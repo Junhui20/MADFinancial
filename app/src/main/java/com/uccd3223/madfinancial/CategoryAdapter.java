@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
-    private List<Category> categories;
-    private List<Category> allCategories;
-    private Category selectedCategory;
-    private OnCategorySelectedListener listener;
+    private final List<Category> allCategories;
+    private final List<Category> displayedCategories;
+    private final OnCategorySelectedListener listener;
+    private int selectedPosition = -1;
 
     public interface OnCategorySelectedListener {
         void onCategorySelected(Category category);
@@ -24,7 +24,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     public CategoryAdapter(List<Category> categories, OnCategorySelectedListener listener) {
         this.allCategories = new ArrayList<>(categories);
-        this.categories = new ArrayList<>(categories);
+        this.displayedCategories = new ArrayList<>(categories);
         this.listener = listener;
     }
 
@@ -38,11 +38,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        Category category = categories.get(position);
-        holder.bind(category);
+        Category category = displayedCategories.get(position);
+        holder.bind(category, position == selectedPosition);
         holder.itemView.setOnClickListener(v -> {
-            selectedCategory = category;
-            notifyDataSetChanged();
+            int previousSelected = selectedPosition;
+            selectedPosition = holder.getAdapterPosition();
+            notifyItemChanged(previousSelected);
+            notifyItemChanged(selectedPosition);
             if (listener != null) {
                 listener.onCategorySelected(category);
             }
@@ -50,19 +52,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         // Update selection state
         MaterialCardView cardView = (MaterialCardView) holder.itemView;
-        cardView.setChecked(category == selectedCategory);
+        cardView.setChecked(position == selectedPosition);
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return displayedCategories.size();
     }
 
     public void filterCategories(String type) {
-        categories = allCategories.stream()
-                .filter(category -> category.getType().equals(type))
-                .collect(Collectors.toList());
-        selectedCategory = null;
+        displayedCategories.clear();
+        for (Category category : allCategories) {
+            if (category.getType().equals(type)) {
+                displayedCategories.add(category);
+            }
+        }
+        selectedPosition = -1;
         notifyDataSetChanged();
     }
 
@@ -76,9 +81,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             nameView = itemView.findViewById(R.id.categoryName);
         }
 
-        void bind(Category category) {
+        void bind(Category category, boolean isSelected) {
             iconView.setImageResource(category.getIconResource());
             nameView.setText(category.getName());
+            itemView.setSelected(isSelected);
         }
     }
 }

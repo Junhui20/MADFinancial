@@ -108,22 +108,26 @@ public class AddTransactionActivity extends AppCompatActivity implements Categor
     }
 
     private void saveTransaction() {
-        if (!validateInputs()) {
+        String amountStr = amountInput != null ? amountInput.getText().toString() : "";
+        String description = descriptionInput != null ? descriptionInput.getText().toString() : "";
+        String currency = currencyDropdown != null ? currencyDropdown.getText().toString() : "MYR";
+
+        if (!validateInputs(amountStr)) {
             return;
         }
 
         String type = typeToggleGroup.getCheckedButtonId() == R.id.incomeButton ? "income" : "expense";
-        double amount = Double.parseDouble(amountInput.getText().toString());
+        double amount = Double.parseDouble(amountStr);
         if (type.equals("expense")) {
             amount = -amount;
         }
 
         Map<String, Object> transaction = new HashMap<>();
         transaction.put("amount", amount);
-        transaction.put("currency", currencyDropdown.getText().toString());
+        transaction.put("currency", currency);
         transaction.put("category", selectedCategory.getName());
         transaction.put("categoryId", selectedCategory.getId());
-        transaction.put("description", descriptionInput.getText().toString());
+        transaction.put("description", description);
         transaction.put("type", type);
         transaction.put("date", new Date());
 
@@ -133,15 +137,16 @@ public class AddTransactionActivity extends AppCompatActivity implements Categor
                     Toast.makeText(this, "Transaction saved successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 })
-                .addOnFailureListener(e -> {
+                .addOnFailureListener(e -> 
                     Toast.makeText(this, "Error saving transaction: " + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                });
+                            Toast.LENGTH_SHORT).show());
     }
 
-    private boolean validateInputs() {
-        if (amountInput.getText().toString().isEmpty()) {
-            amountInput.setError("Amount is required");
+    private boolean validateInputs(String amountStr) {
+        if (amountStr.isEmpty()) {
+            if (amountInput != null) {
+                amountInput.setError("Amount is required");
+            }
             return false;
         }
 
