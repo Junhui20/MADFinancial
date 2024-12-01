@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "580709502429",
+    "project_id": "madfinancial-31900",
+    "storage_bucket": "madfinancial-31900.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580709502429:android:f71cc73866038fdc693a34",
+        "android_client_info": {
+          "package_name": "com.uccd3223.madfinancial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRHPMSgLcljN4YhaRxCVsjnJqvZ51bTxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

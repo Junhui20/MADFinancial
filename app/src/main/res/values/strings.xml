@@ -1,3 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MADFinancial</string>
+    <string name="app_name">MAD Financial</string>
+    
+    <!-- Main Activity -->
+    <string name="total_balance">Total Balance</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="amount_format">MYR %.2f</string>
+    <string name="zero_amount">MYR 0.00</string>
+    <string name="add_transaction">Add Transaction</string>
+    
+    <!-- Add Transaction Activity -->
+    <string name="transaction_type">Transaction Type</string>
+    <string name="amount">Amount</string>
+    <string name="currency">Currency</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="save_transaction">Save Transaction</string>
+    <string name="currency_hint">Select currency</string>
 </resources>
