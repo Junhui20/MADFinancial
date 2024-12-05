@@ -58,4 +58,6 @@
     <string name="transaction_attachment_desc">Transaction Attachment</string>
     <string name="button_close">Close</string>
     <string name="button_edit">Edit</string>
+    <string name="closebutton">Close Button for Activity</string>
+
 </resources>
