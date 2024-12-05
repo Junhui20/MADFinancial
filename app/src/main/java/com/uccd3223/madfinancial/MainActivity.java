@@ -4,12 +4,28 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -25,12 +41,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.jh_activity_main);
 
         dbHelper = new DatabaseHelper(this);
         initializeViews();
         setupViews();
         loadTransactions();
+
+
+        setTitle("Add Income/Expense");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void initializeViews() {
@@ -65,18 +87,18 @@ public class MainActivity extends AppCompatActivity {
         double totalExpense = 0;
 
         String[] projection = {
-            "id",
-            "type",
-            "amount",
-            "name",
-            "category",
-            "category_name",
-            "category_color",
-            "timestamp",
-            "description",
-            "is_recurring",
-            "recurring_period",
-            "image_uri"
+                "id",
+                "type",
+                "amount",
+                "name",
+                "category",
+                "category_name",
+                "category_color",
+                "timestamp",
+                "description",
+                "is_recurring",
+                "recurring_period",
+                "image_uri"
         };
 
         String sortOrder = "timestamp DESC";
@@ -92,18 +114,18 @@ public class MainActivity extends AppCompatActivity {
         )) {
             while (cursor.moveToNext()) {
                 Transaction transaction = new Transaction(
-                    cursor.getString(cursor.getColumnIndexOrThrow("id")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("type")),
-                    cursor.getDouble(cursor.getColumnIndexOrThrow("amount")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("name")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("category")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("category_name")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("category_color")),
-                    cursor.getLong(cursor.getColumnIndexOrThrow("timestamp")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("description")),
-                    cursor.getInt(cursor.getColumnIndexOrThrow("is_recurring")) == 1,
-                    cursor.getString(cursor.getColumnIndexOrThrow("recurring_period")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("image_uri"))
+                        cursor.getString(cursor.getColumnIndexOrThrow("id")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("type")),
+                        cursor.getDouble(cursor.getColumnIndexOrThrow("amount")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("name")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("category")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("category_name")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("category_color")),
+                        cursor.getLong(cursor.getColumnIndexOrThrow("timestamp")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("description")),
+                        cursor.getInt(cursor.getColumnIndexOrThrow("is_recurring")) == 1,
+                        cursor.getString(cursor.getColumnIndexOrThrow("recurring_period")),
+                        cursor.getString(cursor.getColumnIndexOrThrow("image_uri"))
                 );
                 transactions.add(transaction);
 
@@ -129,4 +151,11 @@ public class MainActivity extends AppCompatActivity {
         incomeText.setText("Income: RM " + incomeString);
         expenseText.setText("Expense: RM " + expenseString);
     }
+
+    public boolean onSupportNavigateUp() {
+        // Handle back button press
+        finish();
+        return true;
+    }
+
 }

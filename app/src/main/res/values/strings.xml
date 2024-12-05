@@ -28,4 +28,6 @@
     <string name="upload_image">Upload Image</string>
     <string name="attach_image">Attach Image</string>
     <string name="add_image">Add Image</string>
+    <string name="closebutton">Close Button for Activity</string>
+
 </resources>

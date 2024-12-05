@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvBudgetsOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Budgets Overview"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tvShowMoreBudgets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHOW MORE"
+            android:textSize="14sp"
+            android:textColor="#2196F3"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tvGoalsOverview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goals Overview"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tvShowMoreGoals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHOW MORE"
+            android:textSize="14sp"
+            android:textColor="#2196F3"
+            android:layout_marginTop="8dp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:background="#CCCCCC" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:background="#CCCCCC" />
+
+    </LinearLayout>
+</ScrollView>
