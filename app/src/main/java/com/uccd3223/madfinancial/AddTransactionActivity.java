@@ -92,16 +92,19 @@ public class AddTransactionActivity extends AppCompatActivity {
         expenseButton.setOnClickListener(v -> {
             expenseButton.setChecked(true);
             incomeButton.setChecked(false);
+            categoryAdapter.filterCategories("expense");
         });
 
         incomeButton.setOnClickListener(v -> {
             incomeButton.setChecked(true);
             expenseButton.setChecked(false);
+            categoryAdapter.filterCategories("income");
         });
 
         // Set initial state
         expenseButton.setChecked(true);
         incomeButton.setChecked(false);
+        categoryAdapter.filterCategories("expense");
     }
 
     private void setupCategoryRecyclerView() {
