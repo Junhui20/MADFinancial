@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -146,10 +147,12 @@ public class MainActivity extends AppCompatActivity {
         String balanceString = String.format(Locale.getDefault(), "%.2f", balance);
         String incomeString = String.format(Locale.getDefault(), "%.2f", income);
         String expenseString = String.format(Locale.getDefault(), "%.2f", expense);
+        TextView dividerText = findViewById(R.id.dividerText);
 
-        balanceText.setText("Balance: RM " + balanceString);
-        incomeText.setText("Income: RM " + incomeString);
-        expenseText.setText("Expense: RM " + expenseString);
+        balanceText.setText(Html.fromHtml("<big>RM" + balanceString));
+        incomeText.setText(Html.fromHtml("<big>RM" + incomeString + "</big><br><small>Income</small>"));
+        dividerText.setText("|");
+        expenseText.setText(Html.fromHtml("<big>RM" + expenseString + "</big><br><small>Expenses</small>"));
     }
 
     public boolean onSupportNavigateUp() {
