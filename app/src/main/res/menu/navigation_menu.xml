@@ -12,6 +12,11 @@
             android:icon="@drawable/lic_profile"
             android:title="Profile" />
 
+        <item
+            android:id="@+id/nav_currency_converter"
+            android:icon="@drawable/lic_ce"
+            android:title="Currency Converter" />
+
     </group>
 
     <item

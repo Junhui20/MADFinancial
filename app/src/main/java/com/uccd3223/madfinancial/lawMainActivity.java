@@ -68,20 +68,17 @@ public class lawMainActivity extends AppCompatActivity {
 
                         if (id == R.id.nav_home) {
                             Toast.makeText(lawMainActivity.this,
-                                    "Home Selected", Toast.LENGTH_SHORT).show();
+                                    "Back to Home", Toast.LENGTH_SHORT).show();
                         } else if (id == R.id.nav_profile) {
-                            Toast.makeText(lawMainActivity.this,
-                                    "Profile Selected", Toast.LENGTH_SHORT).show();
                             Intent accountIntent = new Intent(lawMainActivity.this, AccountActivity.class);
                             startActivity(accountIntent);
+                        } else if (id == R.id.nav_currency_converter) {
+                            Intent accountIntent = new Intent(lawMainActivity.this, CurrencyExchangeActivity.class);
+                            startActivity(accountIntent);
                         } else if (id == R.id.nav_share) {
-                            Toast.makeText(lawMainActivity.this,
-                                    "Share Selected", Toast.LENGTH_SHORT).show();
                             Intent accountIntent = new Intent(lawMainActivity.this, ShareActivity.class);
                             startActivity(accountIntent);
                         } else if (id == R.id.nav_feedback) {
-                            Toast.makeText(lawMainActivity.this,
-                                    "Feedback Selected", Toast.LENGTH_SHORT).show();
                             Intent accountIntent = new Intent(lawMainActivity.this, SupportActivity.class);
                             startActivity(accountIntent);
                         } else if (id == R.id.nav_logout) {
