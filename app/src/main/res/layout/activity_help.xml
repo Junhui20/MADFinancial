@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:text="\nQ: How do I add expense?"
+            android:text="Q: How do I add expense?"
             android:textSize="20sp"
             android:textStyle="bold" />
 

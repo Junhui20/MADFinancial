@@ -72,15 +72,20 @@ public class lawMainActivity extends AppCompatActivity {
                         } else if (id == R.id.nav_profile) {
                             Toast.makeText(lawMainActivity.this,
                                     "Profile Selected", Toast.LENGTH_SHORT).show();
+                            Intent accountIntent = new Intent(lawMainActivity.this, AccountActivity.class);
+                            startActivity(accountIntent);
                         } else if (id == R.id.nav_share) {
                             Toast.makeText(lawMainActivity.this,
                                     "Share Selected", Toast.LENGTH_SHORT).show();
                         } else if (id == R.id.nav_feedback) {
                             Toast.makeText(lawMainActivity.this,
                                     "Feedback Selected", Toast.LENGTH_SHORT).show();
+                            Intent accountIntent = new Intent(lawMainActivity.this, SupportActivity.class);
+                            startActivity(accountIntent);
                         } else if (id == R.id.nav_logout) {
                             Toast.makeText(lawMainActivity.this,
-                                    "Logout Selected", Toast.LENGTH_SHORT).show();
+                                    "Goodbye!", Toast.LENGTH_SHORT).show();
+                            finish();
                         }
 
                         drawerLayout.closeDrawer(navigationView);
