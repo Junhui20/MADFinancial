@@ -59,5 +59,11 @@
     <string name="button_close">Close</string>
     <string name="button_edit">Edit</string>
     <string name="closebutton">Close Button for Activity</string>
+    <string-array name="filter_options">
+        <item>Sort by Duration</item>
+        <item>Sort by Saving Target (Ascending)</item>
+        <item>Sort by Saving Target (Descending)</item>
+        <item>Sort Alphabetically</item>
+    </string-array>
 
 </resources>
