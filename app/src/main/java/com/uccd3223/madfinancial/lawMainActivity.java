@@ -77,6 +77,8 @@ public class lawMainActivity extends AppCompatActivity {
                         } else if (id == R.id.nav_share) {
                             Toast.makeText(lawMainActivity.this,
                                     "Share Selected", Toast.LENGTH_SHORT).show();
+                            Intent accountIntent = new Intent(lawMainActivity.this, ShareActivity.class);
+                            startActivity(accountIntent);
                         } else if (id == R.id.nav_feedback) {
                             Toast.makeText(lawMainActivity.this,
                                     "Feedback Selected", Toast.LENGTH_SHORT).show();
