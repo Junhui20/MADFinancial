@@ -66,7 +66,7 @@ public class CurrencyExchangeActivity extends AppCompatActivity {
 
     private void fetchExchangeRate() {
         String targetCurrency = currencySpinner.getSelectedItem().toString();
-        String apiUrl = "https://v6.exchangerate-api.com/v6/e731a9740b61a8237dde3fbb/latest/MYR"; // Replace MYR with your base currency
+        String apiUrl = "https://v6.exchangerate-api.com/v6/e731a9740b61a8237dde3fbb/latest/MYR";
 
         new Thread(() -> {
             try {
