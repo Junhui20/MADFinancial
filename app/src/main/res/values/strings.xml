@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MAD Financial</string>
+    
+    <!-- Main Activity -->
+    <string name="total_balance">Total Balance</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="amount_format">MYR %.2f</string>
+    <string name="zero_amount">MYR 0.00</string>
+    <string name="add_transaction">Add Transaction</string>
+    
+    <!-- Add Transaction Activity -->
+    <string name="transaction_type">Transaction Type</string>
+    <string name="amount">Amount</string>
+    <string name="currency">Currency</string>
+    <string name="category">Category</string>
+    <string name="description">Description</string>
+    <string name="save_transaction">Save Transaction</string>
+    <string name="currency_hint">Select currency</string>
+    <string name="transaction_name">Transaction Name</string>
+    <string name="date_and_time">Date and Time</string>
+    <string name="recurring_transaction">Recurring Transaction</string>
+    <string name="enable_recurring">Enable Recurring</string>
+    <string name="recurring_period">Recurring Period</string>
+    <string name="attachment">Attachment</string>
+    <string name="attachment_preview">Attachment Preview</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="attach_image">Attach Image</string>
+    <string name="add_image">Add Image</string>
+    <string name="category_icon">Category Icon</string>
+    
+    <!-- Messages and Labels -->
+    <string name="error_enter_name">Please enter a name</string>
+    <string name="error_enter_amount">Please enter an amount</string>
+    <string name="error_select_category">Please select a category</string>
+    <string name="transaction_updated">Transaction updated successfully</string>
+    <string name="transaction_saved">Transaction saved successfully</string>
+    <string name="total_income">Income: %s</string>
+    <string name="total_expense">Expense: %s</string>
+    <string name="balance">Balance: %s</string>
+
+    <!-- Add Transaction Screen -->
+    <string name="back_button">Back</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_time">Select Time</string>
+    <string name="image_preview_desc">Transaction Image Preview</string>
+
+    <!-- Transaction Details Dialog -->
+    <string name="transaction_details">Transaction Details</string>
+    <string name="transaction_type_label">Type:</string>
+    <string name="transaction_name_label">Name:</string>
+    <string name="transaction_amount_label">Amount:</string>
+    <string name="transaction_category_label">Category:</string>
+    <string name="transaction_date_label">Date:</string>
+    <string name="transaction_time_label">Time:</string>
+    <string name="transaction_note_label">Note:</string>
+    <string name="transaction_attachment_desc">Transaction Attachment</string>
+    <string name="button_close">Close</string>
+    <string name="button_edit">Edit</string>
+    <string name="closebutton">Close Button for Activity</string>
+    <string-array name="filter_options">
+        <item>Sort by Duration</item>
+        <item>Sort by Saving Target (Ascending)</item>
+        <item>Sort by Saving Target (Descending)</item>
+        <item>Sort Alphabetically</item>
+    </string-array>
+
+    <string name="enter_amount">Enter amount</string>
+    <string name="convert">Convert</string>
+    <string name="converted_amount">Converted Amount</string>
+
+</resources>

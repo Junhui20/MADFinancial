@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/lic_home"
+            android:title="Home" />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/lic_profile"
+            android:title="Profile" />
+
+    </group>
+
+    <item
+        android:enabled="false"
+        android:textColor="#070707"
+        android:textStyle="bold"
+        android:title="✧ COMMUNICATE ✧">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/lic_share"
+                android:title="Share" />
+
+            <item
+                android:id="@+id/nav_feedback"
+                android:icon="@drawable/lic_feedback"
+                android:title="Feedback" />
+
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/lic_logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+</menu>
