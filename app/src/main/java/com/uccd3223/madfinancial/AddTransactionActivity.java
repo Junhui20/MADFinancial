@@ -181,10 +181,11 @@ public class AddTransactionActivity extends AppCompatActivity {
             Toast.makeText(this, "Transaction updated successfully", Toast.LENGTH_SHORT).show();
         } else {
             dbHelper.insertTransaction(transaction);
-            Toast.makeText(this, "Transaction saved successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddTransactionActivity.this, "Transaction added successfully", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(AddTransactionActivity.this, TransactionActivity.class);
+            startActivity(intent);
+            finish();
         }
-
-        finish();
     }
 
     private void setupDateTimeButtons() {
@@ -301,5 +302,13 @@ public class AddTransactionActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, TransactionActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

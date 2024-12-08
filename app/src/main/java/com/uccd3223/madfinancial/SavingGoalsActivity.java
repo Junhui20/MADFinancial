@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
-public class SavingGoalsActivity extends AppCompatActivity {
+public class SavingGoalsActivity extends BaseActivity {
 
     private static final double CURRENT_SAVING = 200; // Global variable for current saving
     private EditText goalInput, savingGoalInput, durationInput, currentSavingInput;
@@ -32,6 +32,7 @@ public class SavingGoalsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saving_goals);
+        setupToolbar("Saving Goals");
 
         // Initialize views
         goalInput = findViewById(R.id.editTextGoals);
@@ -207,6 +208,4 @@ public class SavingGoalsActivity extends AppCompatActivity {
         // Add 1 to the difference to include both start and end date
         return diffInMillis > 0 ? (diffInMillis / (1000 * 60 * 60 * 24))+1 : 0;
     }
-
-
 }

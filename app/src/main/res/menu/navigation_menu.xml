@@ -8,6 +8,21 @@
             android:title="Home" />
 
         <item
+            android:id="@+id/nav_currency"
+            android:icon="@drawable/ic_swap"
+            android:title="Currency Exchange" />
+
+        <item
+            android:id="@+id/nav_transactions"
+            android:icon="@drawable/ic_money"
+            android:title="Transactions" />
+
+        <item
+            android:id="@+id/nav_savings"
+            android:icon="@drawable/savinggoals"
+            android:title="Savings Goals" />
+
+        <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/lic_profile"
             android:title="Profile" />

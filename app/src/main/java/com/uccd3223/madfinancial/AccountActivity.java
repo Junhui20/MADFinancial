@@ -33,7 +33,7 @@ public class AccountActivity extends AppCompatActivity {
             Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show();
 
             // Navigate back to the home page
-            Intent intent = new Intent(this, lawMainActivity.class); // Replace MainActivity with your home activity class
+            Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Ensures no duplicate activity
             startActivity(intent);
             finish(); // Finish AccountActivity
