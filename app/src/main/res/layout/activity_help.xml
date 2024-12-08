@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            android:text="\nQ: How do I add expense?"
+            android:text="Q: How do I add an expense?"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
-            android:text="A: Go to the Home page and tap on '+' button located at bottom right screen."
+            android:text="A: Go to the Home page and tap on the 'Transaction' button, then tap the '+' located at the bottom right of the screen."
             android:textSize="18sp" />
 
         <!-- Question 2 -->
@@ -49,5 +49,63 @@
             android:paddingBottom="8dp"
             android:text="A: Navigate to the 'Account' section, update your details, and tap the confirm button to save changes."
             android:textSize="18sp" />
+
+        <!-- Question 3 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="\nQ: Can i convert to other currency?"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="A: Go to the 'Currency Exchange' page from the menu, select your desired currency from the dropdown list, and tap on 'Convert'."
+            android:textSize="18sp" />
+
+        <!-- Question 4 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="\nQ: Can I view past transactions?"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="A: Yes, navigate to the 'Transactions' page from the menu to view your past transactions."
+            android:textSize="18sp" />
+
+        <!-- Question 5 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:text="\nQ: Where can I report a bug or suggest a feature?"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:text="A: Use the 'Feedback' option available in the menu to share bugs or suggestions directly with us."
+            android:textSize="18sp" />
+
+        <!-- Contact Information -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:text="\nIf you are facing any other issues, please contact our customer service at exampleQ&amp;ACS@gmail.com."
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:textColor="#555555" />
     </LinearLayout>
 </ScrollView>
