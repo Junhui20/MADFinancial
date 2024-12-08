@@ -137,10 +137,13 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
                 // Stay on current activity
                 Toast.makeText(MainActivity.this,
-                        "Home", Toast.LENGTH_SHORT).show();
+                        "Back to Home", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_currency) {
                 Intent intent = new Intent(MainActivity.this, CurrencyExchangeActivity.class);
                 startActivity(intent);
+            } else if (id == R.id.nav_profile) {
+                Intent accountIntent = new Intent(MainActivity.this, AccountActivity.class);
+                startActivity(accountIntent);
             } else if (id == R.id.nav_transactions) {
                 Intent intent = new Intent(MainActivity.this, TransactionActivity.class);
                 startActivity(intent);
@@ -151,14 +154,15 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,
                         "Profile Selected", Toast.LENGTH_SHORT).show();
             } else if (id == R.id.nav_share) {
-                Toast.makeText(MainActivity.this,
-                        "Share Selected", Toast.LENGTH_SHORT).show();
+                Intent accountIntent = new Intent(MainActivity.this, ShareActivity.class);
+                startActivity(accountIntent);
             } else if (id == R.id.nav_feedback) {
-                Toast.makeText(MainActivity.this,
-                        "Feedback Selected", Toast.LENGTH_SHORT).show();
+                Intent accountIntent = new Intent(MainActivity.this, SupportActivity.class);
+                startActivity(accountIntent);
             } else if (id == R.id.nav_logout) {
                 Toast.makeText(MainActivity.this,
-                        "Logout Selected", Toast.LENGTH_SHORT).show();
+                        "Goodbye!", Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             drawerLayout.closeDrawer(navigationView);
@@ -195,7 +199,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            }
         });
 
         timeSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
@@ -205,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(android.widget.AdapterView<?> parent) {}
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            }
         });
 
         // Setup pie chart
@@ -218,16 +224,16 @@ public class MainActivity extends AppCompatActivity {
         pieChart.setTransparentCircleRadius(61f);
         pieChart.setDrawEntryLabels(false); // Hide default labels
         pieChart.setHighlightPerTapEnabled(true); // Enable highlighting on tap
-        
+
         // Configure value display
         pieChart.setDrawEntryLabels(true);
         pieChart.setEntryLabelColor(Color.WHITE);
         pieChart.setEntryLabelTextSize(12f);
-        
+
         // Enable rotation
         pieChart.setRotationEnabled(true);
         pieChart.setHighlightPerTapEnabled(true);
-        
+
         // Configure highlight
         pieChart.setHighlightPerTapEnabled(true);
         pieChart.setOnChartValueSelectedListener(new com.github.mikephil.charting.listener.OnChartValueSelectedListener() {
@@ -237,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     PieEntry pe = (PieEntry) e;
                     String label = pe.getLabel();
                     float value = pe.getValue();
-                    
+
                     // Calculate total from all entries
                     float total = 0f;
                     PieData data = pieChart.getData();
@@ -246,11 +252,11 @@ public class MainActivity extends AppCompatActivity {
                             total += entry.getValue();
                         }
                     }
-                    
+
                     float percentage = (total > 0) ? (value / total * 100) : 0;
-                    
-                    String message = String.format(Locale.getDefault(), "%s: %.1f%%\nRM %.2f", 
-                        label, percentage, value);
+
+                    String message = String.format(Locale.getDefault(), "%s: %.1f%%\nRM %.2f",
+                            label, percentage, value);
                     Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -260,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
                 // Do nothing when no slice is selected
             }
         });
-        
+
         com.github.mikephil.charting.components.Legend legend = pieChart.getLegend();
         legend.setVerticalAlignment(com.github.mikephil.charting.components.Legend.LegendVerticalAlignment.TOP);
         legend.setHorizontalAlignment(com.github.mikephil.charting.components.Legend.LegendHorizontalAlignment.RIGHT);
@@ -277,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Get start time based on selected time frame
         long startTime = getStartTime(timeFrame);
-        
+
         // Query transactions
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String[] projection = {"type", "category", "amount"};
@@ -297,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
                 null)) {
 
             while (cursor.moveToNext()) {
-                String key = metric.equals("Category") ? 
+                String key = metric.equals("Category") ?
                         cursor.getString(cursor.getColumnIndexOrThrow("category")) :
                         cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 float amount = Math.abs(cursor.getFloat(cursor.getColumnIndexOrThrow("amount")));
@@ -310,13 +316,13 @@ public class MainActivity extends AppCompatActivity {
         // Create pie data entries
         List<PieEntry> entries = new ArrayList<>();
         List<Integer> colors = new ArrayList<>();
-        
+
         int[] COLORS = {
-            Color.rgb(64, 89, 128),
-            Color.rgb(149, 165, 124),
-            Color.rgb(217, 184, 162),
-            Color.rgb(191, 134, 134),
-            Color.rgb(179, 48, 80)
+                Color.rgb(64, 89, 128),
+                Color.rgb(149, 165, 124),
+                Color.rgb(217, 184, 162),
+                Color.rgb(191, 134, 134),
+                Color.rgb(179, 48, 80)
         };
 
         int colorIndex = 0;
@@ -346,12 +352,12 @@ public class MainActivity extends AppCompatActivity {
     private SpannableString generateCenterSpannableText(float total) {
         String text = String.format(Locale.getDefault(), "Total\nRM %.2f", total);
         SpannableString ss = new SpannableString(text);
-        
+
         int lineBreakIndex = text.indexOf('\n');
         ss.setSpan(new RelativeSizeSpan(0.7f), 0, lineBreakIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new StyleSpan(Typeface.BOLD), lineBreakIndex + 1, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(Color.GRAY), 0, lineBreakIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        
+
         return ss;
     }
 
