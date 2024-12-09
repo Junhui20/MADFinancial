@@ -28,17 +28,17 @@
         <activity
             android:name=".TransactionActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
         <activity
             android:name=".AddTransactionActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
         <activity
             android:name=".CurrencyExchangeActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
         <activity
             android:name=".AccountActivity"
@@ -59,18 +59,20 @@
             android:name=".SupportActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
-
+        <activity
+            android:name=".ShareActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".SavingGoalsActivity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
         <activity
             android:name=".HistoryActivity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            android:parentActivityName=".SavingGoalsActivity" />
+            android:parentActivityName=".SavingGoalsActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
 
     </application>
 </manifest>

@@ -22,7 +22,6 @@ import java.util.Calendar;
 
 public class SavingGoalsActivity extends BaseActivity {
 
-    private static final double CURRENT_SAVING = 200; // Global variable for current saving
     private EditText goalInput, savingGoalInput, durationInput, currentSavingInput;
     private TextView progressText, recommendedSavingText;
     private ProgressBar progressBar;
@@ -44,14 +43,12 @@ public class SavingGoalsActivity extends BaseActivity {
         recommendedSavingText = findViewById(R.id.recommendedSavingText);
 
         selectedDate = Calendar.getInstance();
-        currentSavingInput.setText(String.format("RM %.2f", CURRENT_SAVING));
-        currentSavingInput.setEnabled(false);
 
         // Make durationInput non-editable, show Date Picker on click
         durationInput.setFocusable(false);
         durationInput.setOnClickListener(v -> showDatePicker());
 
-        // Add "RM" prefix to savingGoalInput and prevent editing it
+        // Add "RM" prefix to savingGoalInput
         savingGoalInput.addTextChangedListener(new TextWatcher() {
             boolean isUpdating = false;
 
@@ -75,6 +72,21 @@ public class SavingGoalsActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {}
         });
 
+        // Add TextWatcher to currentSavingInput to update progress dynamically
+        currentSavingInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                calculateProgress();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Add TextWatcher to savingGoalInput to update progress dynamically
         savingGoalInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -88,56 +100,62 @@ public class SavingGoalsActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {}
         });
 
+        // Save button functionality
         Button saveButton = findViewById(R.id.saveButton);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String goalText = goalInput.getText().toString().trim();
-                String savingGoalText = savingGoalInput.getText().toString().trim().replace("RM", "");
-                String durationText = durationInput.getText().toString().trim();
+        saveButton.setOnClickListener(v -> {
+            String goalText = goalInput.getText().toString().trim();
+            String savingGoalText = savingGoalInput.getText().toString().trim().replace("RM", "");
+            String durationText = durationInput.getText().toString().trim();
+            String currentSavingText = currentSavingInput.getText().toString().trim().replace("RM", "");
 
-                // Check for empty values
-                if (goalText.isEmpty()) {
-                    goalInput.setError("Please enter your goal!");
-                    return;
-                }
-
-                if (savingGoalText.isEmpty() || !savingGoalText.matches("\\d+(\\.\\d{1,2})?")) {
-                    savingGoalInput.setError("Please enter a valid saving goal!");
-                    return;
-                }
-
-                if (durationText.isEmpty()) {
-                    durationInput.setError("Please select a duration!");
-                    return;
-                }
-
-                // Save data in SharedPreferences
-                SharedPreferences sharedPreferences = getSharedPreferences("SavingGoals", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                // Format and save the new entry
-                String existingGoals = sharedPreferences.getString("goals", "");
-                String newEntry = "Goal: " + goalText + "\nSaving Target: RM " + savingGoalText + "\nDuration: " + durationText + "\n\n";
-                editor.putString("goals", existingGoals + newEntry);
-                editor.apply();
-
-                // Notify user and reset inputs
-                goalInput.setText("");
-                savingGoalInput.setText("RM");
-                durationInput.setText("");
-                Toast.makeText(SavingGoalsActivity.this, "Goal saved successfully!", Toast.LENGTH_SHORT).show();
+            // Check for empty values
+            if (goalText.isEmpty()) {
+                goalInput.setError("Please enter your goal!");
+                return;
             }
+
+            if (savingGoalText.isEmpty() || !savingGoalText.matches("\\d+(\\.\\d{1,2})?")) {
+                savingGoalInput.setError("Please enter a valid saving goal!");
+                return;
+            }
+
+            if (currentSavingText.isEmpty() || !currentSavingText.matches("\\d+(\\.\\d{1,2})?")) {
+                currentSavingInput.setError("Please enter your current savings!");
+                return;
+            }
+
+            if (durationText.isEmpty()) {
+                durationInput.setError("Please select a duration!");
+                return;
+            }
+
+            // Save data in SharedPreferences
+            SharedPreferences sharedPreferences = getSharedPreferences("SavingGoals", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            // Format and save the new entry
+            String existingGoals = sharedPreferences.getString("goals", "");
+            String newEntry = "Goal: " + goalText + "\nSaving Target: RM " + savingGoalText + "\nCurrent Saving: RM " + currentSavingText +
+                    "\nDuration: " + durationText + "\n\n";
+            editor.putString("goals", existingGoals + newEntry);
+            editor.apply();
+
+            // Notify user and reset inputs
+            goalInput.setText("");
+            savingGoalInput.setText("RM");
+            currentSavingInput.setText("");
+            durationInput.setText("");
+            Toast.makeText(SavingGoalsActivity.this, "Goal saved successfully!", Toast.LENGTH_SHORT).show();
+
+            // Finish the activity and go back to the HistoryActivity
+            finish();
         });
 
         // Handle history button click
         ImageButton historyButton = findViewById(R.id.button);
-        historyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SavingGoalsActivity.this, HistoryActivity.class);
-                startActivity(intent);
-            }
+        historyButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SavingGoalsActivity.this, HistoryActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -161,17 +179,20 @@ public class SavingGoalsActivity extends BaseActivity {
     }
 
     private void calculateProgress() {
-        String savingGoalStr = savingGoalInput.getText().toString().replace("RM", "").trim(); // Remove RM if exists
-        if (!savingGoalStr.isEmpty()) {
+        String savingGoalStr = savingGoalInput.getText().toString().replace("RM", "").trim();
+        String currentSavingStr = currentSavingInput.getText().toString().replace("RM", "").trim();
+
+        if (!savingGoalStr.isEmpty() && !currentSavingStr.isEmpty()) {
             try {
                 double savingGoal = Double.parseDouble(savingGoalStr);
+                double currentSaving = Double.parseDouble(currentSavingStr);
 
                 // Calculate progress percentage
-                double progressPercentage = (CURRENT_SAVING / savingGoal) * 100;
+                double progressPercentage = (currentSaving / savingGoal) * 100;
                 progressBar.setProgress((int) progressPercentage); // Update progress bar
 
                 // Display progress message
-                double amountLeft = savingGoal - CURRENT_SAVING;
+                double amountLeft = savingGoal - currentSaving;
                 long daysLeft = getDaysLeft(); // Get days left
 
                 if (amountLeft > 0) {
@@ -182,30 +203,25 @@ public class SavingGoalsActivity extends BaseActivity {
 
                 // Calculate recommended saving per day
                 if (daysLeft > 0) {
-                    // Calculate recommended saving per day
                     double recommendedSaving = amountLeft / daysLeft;
-                    recommendedSavingText.setText(String.format("Recommended saving: RM %.2f per day",recommendedSaving));
+                    recommendedSavingText.setText(String.format("Recommended saving: RM %.2f per day", recommendedSaving));
                 } else {
                     recommendedSavingText.setText("");
                 }
             } catch (NumberFormatException e) {
-                progressText.setText("Invalid input. Please enter a valid saving goal.");
+                progressText.setText("Invalid input. Please enter valid values.");
                 recommendedSavingText.setText("");
             }
         } else {
-            progressText.setText("Enter your saving goal to see progress.");
+            progressText.setText("Enter your saving goal and current saving to see progress.");
             progressBar.setProgress(0);
             recommendedSavingText.setText("");
         }
     }
 
-
     private long getDaysLeft() {
-        // Calculate the difference in days between today and the selected date, inclusive of both today and end date
         Calendar today = Calendar.getInstance();
         long diffInMillis = selectedDate.getTimeInMillis() - today.getTimeInMillis();
-
-        // Add 1 to the difference to include both start and end date
-        return diffInMillis > 0 ? (diffInMillis / (1000 * 60 * 60 * 24))+1 : 0;
+        return diffInMillis > 0 ? (diffInMillis / (1000 * 60 * 60 * 24)) + 1 : 0;
     }
 }

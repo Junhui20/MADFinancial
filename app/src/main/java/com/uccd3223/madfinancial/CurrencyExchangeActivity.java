@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,7 +76,7 @@ public class CurrencyExchangeActivity extends BaseActivity {
 
         // Initialize currency spinners with dummy data
         List<String> currencies = Arrays.asList(
-                "USD", "EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "HKD","MYR",
+                "USD", "EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "HKD", "MYR",
                 "SGD", "INR", "BRL", "RUB", "ZAR", "KRW", "AED", "SAR", "MXN",
                 "NZD", "THB"
         );
@@ -90,9 +91,9 @@ public class CurrencyExchangeActivity extends BaseActivity {
         spinnerFrom.setAdapter(adapter);
         spinnerTo.setAdapter(adapter);
 
-        // Set default selections
-        spinnerFrom.setSelection(0); // USD
-        spinnerTo.setSelection(6);   // CNY
+        // Set default selections MYR to USD
+        spinnerFrom.setSelection(9);
+        spinnerTo.setSelection(0);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -153,7 +154,7 @@ public class CurrencyExchangeActivity extends BaseActivity {
 
         Call<CurrencyResponse> call = api.getExchangeRates(API_KEY, "MYR");
         Log.d("CurrencyExchange", "Fetching rates with API key: " + API_KEY);
-        
+
         call.enqueue(new Callback<CurrencyResponse>() {
             @Override
             public void onResponse(Call<CurrencyResponse> call, Response<CurrencyResponse> response) {
@@ -163,8 +164,8 @@ public class CurrencyExchangeActivity extends BaseActivity {
                     Log.d("CurrencyExchange", "Rates received: " + currentRates);
                     if (currentRates == null || currentRates.isEmpty()) {
                         runOnUiThread(() -> {
-                            Toast.makeText(CurrencyExchangeActivity.this, 
-                                "No exchange rates available", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CurrencyExchangeActivity.this,
+                                    "No exchange rates available", Toast.LENGTH_SHORT).show();
                             resultTextView.setText("No exchange rates available");
                         });
                     }
@@ -176,10 +177,10 @@ public class CurrencyExchangeActivity extends BaseActivity {
                         errorBody = "Error reading error body";
                     }
                     Log.e("CurrencyExchange", "Error response: " + errorBody);
-                    
+
                     runOnUiThread(() -> {
-                        Toast.makeText(CurrencyExchangeActivity.this, 
-                            "Failed to fetch exchange rates: " + response.code(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CurrencyExchangeActivity.this,
+                                "Failed to fetch exchange rates: " + response.code(), Toast.LENGTH_SHORT).show();
                         resultTextView.setText("Failed to fetch exchange rates");
                     });
                 }
@@ -189,8 +190,8 @@ public class CurrencyExchangeActivity extends BaseActivity {
             public void onFailure(Call<CurrencyResponse> call, Throwable t) {
                 Log.e("CurrencyExchange", "Network error", t);
                 runOnUiThread(() -> {
-                    Toast.makeText(CurrencyExchangeActivity.this, 
-                        "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CurrencyExchangeActivity.this,
+                            "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     resultTextView.setText("Network error: Unable to fetch rates");
                 });
             }
@@ -210,6 +211,12 @@ public class CurrencyExchangeActivity extends BaseActivity {
             return;
         }
 
+        // Retract Keyboard
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         double amount;
         try {
             amount = Double.parseDouble(amountStr);
@@ -237,8 +244,8 @@ public class CurrencyExchangeActivity extends BaseActivity {
             String formattedResult = df.format(convertedAmount);
 
             // Display the result
-            String resultText = String.format("%s %s = %s %s", 
-                amountStr, fromCurrency, formattedResult, toCurrency);
+            String resultText = String.format("%s %s = %s %s",
+                    amountStr, fromCurrency, formattedResult, toCurrency);
             resultTextView.setText(resultText);
         } else {
             Log.e("CurrencyExchange", "Conversion failed. fromRate: " + fromRate + ", toRate: " + toRate);
