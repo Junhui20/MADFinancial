@@ -51,6 +51,11 @@
             android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
+            android:name=".CalculatorActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+
+        <activity
             android:name=".SupportActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />

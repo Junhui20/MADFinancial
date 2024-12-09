@@ -246,27 +246,62 @@
                                 android:layout_height="wrap_content"
                                 android:layout_columnWeight="1"
                                 android:layout_margin="8dp"
-                                app:cardCornerRadius="8dp"
-                                app:cardElevation="2dp">
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="4dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="center"
                                     android:orientation="vertical"
                                     android:padding="16dp">
 
                                     <ImageView
                                         android:layout_width="48dp"
                                         android:layout_height="48dp"
+                                        android:layout_gravity="center"
                                         android:src="@drawable/ic_history" />
 
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
                                         android:layout_marginTop="8dp"
                                         android:text="History"
-                                        android:textColor="#333333" />
+                                        android:textColor="#333333"
+                                        android:textSize="16sp" />
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <!-- Calculator Button -->
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/cardCalculator"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_columnWeight="1"
+                                android:layout_margin="8dp"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="4dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="16dp">
+
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/ic_calculator" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="8dp"
+                                        android:text="Calculator"
+                                        android:textColor="#333333"
+                                        android:textSize="16sp" />
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
 

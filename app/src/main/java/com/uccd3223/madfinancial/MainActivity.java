@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         CardView cardCurrencyExchange = findViewById(R.id.cardCurrencyExchange);
         CardView cardSavings = findViewById(R.id.cardSavings);
         CardView cardHistory = findViewById(R.id.cardHistory);
+        CardView cardCalculator = findViewById(R.id.cardCalculator);
 
         // Set click listeners for cards
         cardTransaction.setOnClickListener(v -> {
@@ -91,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
         cardHistory.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            startActivity(intent);
+        });
+
+        cardCalculator.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CalculatorActivity.class);
             startActivity(intent);
         });
 
