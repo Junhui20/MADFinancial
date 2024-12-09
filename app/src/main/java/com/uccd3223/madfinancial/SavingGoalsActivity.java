@@ -146,6 +146,9 @@ public class SavingGoalsActivity extends BaseActivity {
             currentSavingInput.setText("");
             durationInput.setText("");
             Toast.makeText(SavingGoalsActivity.this, "Goal saved successfully!", Toast.LENGTH_SHORT).show();
+
+            // Finish the activity and go back to the HistoryActivity
+            finish();
         });
 
         // Handle history button click
